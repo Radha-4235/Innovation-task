@@ -1,0 +1,88 @@
+#!bin/bash
+
+lftp -c 'connect sftp://afntcd1:TcdTcd@3.51.24.131;' -e "set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5; bye";
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+lftp -c 'connect sftp://afntcd1:TcdTcd@10.83.127.25;' -e "set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5; bye";
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+lftp -c 'connect sftp://afncel2:pHu6a8We@3.31.104.177;' -e "set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5; bye";
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+lftp  -c 'connect sftp://afntcd2:TcdTcd@10.32.51.132;' -e "set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5; bye";
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+lftp -c 'connect sftp://afntcd1:TcdTcd@klas01ase.as.ae.ge.com;' -e "set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5; bye";
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+lftp -c 'connect sftp://afntcd1:TcdTcd@10.172.101.75;' -e "set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5; bye";
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+lftp -c 'connect sftp://afntcd1:TcdTcd@3.31.111.196;' -e "set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5; bye";
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+(
+echo "To: bonigalasarah.stone@ge.com"
+echo "Subject: Server Status on $(date)"
+echo "Content-Type: text/html"
+echo "<html>
+<head>
+<title>Status of the server running the day</title>
+<style>
+  body {
+            font-family: 'Times New Roman';
+            }
+ table, th, td{
+                        border: 1px solid black;
+						text-align:center;
+                        }
+                th{
+                        width:150px;
+                        }
+                td{
+                        width:350px;
+}
+				th, td {
+				padding: 5px;
+				}
+</style>
+</head>
+<body>
+<h4>Hi Team,</h4>
+<table style='width:100%'>
+<tr bgcolor='#808080'>
+    <th>Server Name</th>
+    <th>Server IP Address</th>
+<th>Server status</th>
+  </tr>
+  <tr>
+    <td>DALLAS</td><td>3.51.24.131</td><td>$status1</td>
+  </tr>
+  <tr>
+    <td>RIO 2</td><td>10.83.127.25</td><td>$status2</td>
+  </tr>
+  <tr>
+   <td>RIO 2</td><td>3.31.104.177</td><td>$status3</td>
+  </tr>
+  <tr>
+   <td>RIO 3</td><td>10.32.51.132</td><td>$status4</td>
+  </tr>
+  <tr>
+    <td>MALAYSIA</td><td>klas01ase.as.ae.ge.com</td><td>$status5</td>
+  </tr>
+  <tr>
+    <td>Caledonian</td><td>10.172.101.75</td><td>$status6</td>
+  </tr>
+  <tr>
+    <td>new error</td><td>3.31.111.196</td><td>$status6</td>
+  </tr>
+  </table>
+ <br><br>
+ <br><br>
+        <b>Please take respective action.</b>
+        <br><br>
+        <b>Thanks</b>
+        <p>Please do not reply to this MailBox, It is not monitored.</p>
+</body></html>"
+echo
+) | /usr/sbin/sendmail -t

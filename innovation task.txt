@@ -1,0 +1,694 @@
+HOST=(  "3.51.24.131" "3.31.111.196" "3.31.104.177" "10.32.51.132" "klas01ase.as.ae.ge.com" "10.172.101.75" )
+USER=(  "afntcd1" "afntcd1" "afncel2" "afntcd1" "afntcd1" "afntcd1" )
+PASSWD=( "TcdTcd" "TcdTcd" "pHu6a8We" "TcdTcd" "TcdTcd" "TcdTcd" )
+
+sftp userid:password@remoteHost
+
+sftp afntcd1:TcdTcd@3.51.24.131
+sftp afntcd1:TcdTcd@10.83.127.25
+sftp afncel2:pHu6a8We@3.31.104.177
+sftp afntcd1:TcdTcd@10.32.51.132
+sftp afntcd1:TcdTcd@klas01ase.as.ae.ge.com
+sftp afntcd1:TcdTcd@10.172.101.75
+
+
+sftp --password="TcdTcd" afntcd1@3.51.24.131
+
+sftp afntcd1@3.51.24.131	/usr/users/afntcd1/sftp/	afntcd1	TcdTcd
+sftp afntcd1@3.31.111.196	/home/afntcd1/sftp/	afntcd1	TcdTcd
+sftp afncel2@3.31.104.177	/home/afncel2/sftp/	afncel2	pHu6a8We
+sftp afntcd1@10.32.51.132	/home/afntcd1/sftp	afntcd2	TcdTcd
+sftp afntcd1@klas01ase.as.ae.ge.com	/home/afntcd1/sftp/	afntcd1	TcdTcd
+sftp afntcd1@10.172.101.75	/home/afntcd1/sftp	afntcd1	TcdTcd
+
+
+SERVERIP1=3.51.24.131
+SERVERIP2=10.83.127.25
+SERVERIP3=3.31.104.177
+SERVERIP4=10.32.51.132
+SERVERIP5=klas01ase.as.ae.ge.com
+SERVERIP6=10.172.101.75
+SERVERIP7=3.31.111.196
+SERVERIP8=tnsp02023.ae.ge.com
+
+USER4=intc_arch_prod	 	
+PASSWD3=Itc2016Aug
+
+USER1=afntcd1
+USER2=afncel2
+USER3=afntcd2
+PASSWD1=TcdTcd
+PASSWD2=pHu6a8We
+
+lftp -u ${USER1},${PASSWD1} sftp://${SERVERIP1}<<EOF
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+lftp -u ${USER1},${PASSWD1} sftp://${SERVERIP2}<<EOF
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+lftp -u ${USER2},${PASSWD} sftp://${SERVERIP3}<<EOF
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+lftp -u ${USER3},${PASSWD1} sftp://${SERVERIP4}<<EOF
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+lftp -u ${USER1},${PASSWD1} sftp://${SERVERIP5}<<EOF
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+lftp -u ${USER1},${PASSWD1} sftp://${SERVERIP6}<<EOF
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+lftp -u ${USER4},${PASSWD3} sftp://${SERVERIP8}<<EOF
+cd /apps/tcd/TCDFiles/EMIRATES/EMIRATES
+ls -l|grep "Jun 29"|grep "2019"|wc
+if [ $? -eq 0 ] && status1="$(echo "server is up and running")"; echo $status1 || status1="$(echo "server is down please take action")"; echo $status1; 
+fi
+(
+echo "To: bonigalasarah.stone@ge.com"
+echo "Subject: Server Status on $(date)"
+echo "Content-Type: text/html"
+echo "<html>
+<head>
+<title>Status of the server running the day</title>
+<style>
+  body {
+            font-family: 'Times New Roman';
+            }
+ table, th, td{
+                        border: 1px solid black;
+						text-align:center;
+                        }
+                th{
+                        width:150px;
+                        }
+                td{
+                        width:350px;
+}
+				th, td {
+				padding: 5px;
+				}
+</style>
+</head>
+<body>
+<h4>Hi Team,</h4>
+<table style='width:100%'>
+<tr bgcolor='#808080'>
+    <th>Server Name</th>
+    <th>Server IP Address</th>
+<th>Server status</th>
+  </tr>
+  <tr>
+    <td>DALLAS</td><td>SERVERIP1</td><td>$status1</td>
+  </tr>
+  <tr>
+    <td>RIO 2</td><td>SERVERIP2</td><td>$status2</td>
+  </tr>
+  <tr>
+   <td>RIO 2</td><td>SERVERIP3</td><td>$status3</td>
+  </tr>
+  <tr>
+   <td>RIO 3</td><td>SERVERIP4</td><td>$status4</td>
+  </tr>
+  <tr>
+    <td>MALAYSIA</td><td>SERVERIP5</td><td>$status5</td>
+  </tr>
+  <tr>
+    <td>Caledonian</td><td>SERVERIP6</td><td>$status6</td>
+  </tr>
+  <tr>
+    <td>new error</td><td>SERVERIP7</td><td>$status7</td>
+  </tr>
+  </table>
+ <br><br>
+ <br><br>
+        <b>Please take respective action.</b>
+        <br><br>
+        <b>Thanks</b>
+        <p>Please do not reply to this MailBox, It is not monitored.</p>
+</body></html>"
+echo
+) | /usr/sbin/sendmail -t
+
+=-=========================================================================================
+output1="$(lftp -c 'connect sftp://afntcd1:TcdTcd@3.51.24.131//usr/users/afntcd1/sftp/; ls -l | wc -l')"
+
+output2="$(lftp -c 'connect sftp://afncel2:pHu6a8We@3.31.104.177//home/afncel2/sftp/; ls -l | wc -l')"
+
+output3="$(lftp -c 'connect sftp://afntcd1:TcdTcd@10.32.51.132//home/afntcd1/sftp; ls -l | wc -l')"
+
+output4="$(lftp -c 'connect sftp://afntcd1:TcdTcd@klas01ase.as.ae.ge.com//home/afntcd1/sftp/; ls -l | wc -l')"
+
+output5="$(lftp -c 'connect sftp://afntcd1:TcdTcd@10.172.101.75//home/afntcd1/sftp; ls -l | wc -l')"
+while read HOST ; do echo $HOST ; done < serverIP.txt
+
+
+
+OUTPUT="$(lftp -c 'connect sftp://afntcd1:TcdTcd@3.51.24.131//usr/users/afntcd1/sftp/; ls -l | wc -l')"
+echo "${OUTPUT}"
+OUTPUT="$(ls -1)"
+echo "${OUTPUT}"
+
+
+
+=============================================================================
+#!/bin/bash
+# Program name: pingall.sh
+SERVERIP1=3.31.104.177
+SERVERIP2=10.32.51.132
+SERVERIP3=klas01ase.as.ae.ge.com
+SERVERIP4=10.172.101.75
+SERVERIP5=3.59.236.251
+SERVERIP6=3.51.24.131
+
+output=lftp -c 'connect sftp://afntcd1:TcdTcd@3.51.24.131//usr/users/afntcd1/sftp/; ls -l | wc -l'
+echo $output
+lftp -c 'connect sftp://afncel2:pHu6a8We@3.31.104.177//home/afncel2/sftp/;'
+
+lftp -c 'connect sftp://afntcd1:TcdTcd@10.32.51.132//home/afntcd1/sftp;'
+
+lftp -c 'connect sftp://afntcd1:TcdTcd@klas01ase.as.ae.ge.com//home/afntcd1/sftp/;'
+
+lftp -c 'connect sftp://afntcd1:TcdTcd@10.172.101.75//home/afntcd1/sftp;'
+
+lftp  -c 'connect sftp://afntcd1:TcdTcd@3.31.111.196//home/afntcd1/sftp/;ls -l | wc -l')
+
+'lftp -c 'connect sftp://afntcd1:TcdTcd@3.31.111.196//home/afntcd1/sftp/;'
+echo $checkfile
+(
+echo "To: bonigalasarah.stone@ge.com"
+echo "Subject: Server Status"
+echo "Content-Type: text/html"
+echo 
+
+echo "<html>
+<head>
+<title>Status of the server running the day</title>
+<style>
+table, th, td {
+    border: 1px solid blue;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+}
+</style>
+</head>
+<body>
+<h4>Hi Team,</h4>
+<table style='width:50%'>
+<tr bgcolor='#808080'>
+    <th>Server Name</th>
+    <th>Server IP Sddress</th>
+    <th>Number of files</th>
+  </tr>
+  <tr>
+    <td>DALLAS</td>
+    <td>$SERVERIP1</td>
+    <td>$output1</td>
+  </tr>
+  <tr>
+    <td>RIO</td>
+    <td>$SERVERIP2</td>
+    <td>$output2</td>
+  </tr>
+  <tr>
+   <td>RIO</td>
+   <td>$SERVERIP3</td>
+    <td>$output3</td>
+  </tr>
+  <tr>
+   <td>RIO</td>
+    <td>$SERVERIP4</td>
+    <td>$output4</td>
+  </tr>
+  <tr>
+    <td>MALAYSIA</td>
+    <td>$SERVERIP5</td>
+    <td>$output5</td>
+  </tr>
+  <tr>
+    <td>Caledonian</td>
+    <td>$SERVERIP6</td>
+    <td>$output6</td>
+  </tr>
+
+ </table>
+ <br><br>
+ <br><br>
+ 	<b>Please take respective action.</b>
+	<br><br>
+	<b>Thanks</b>
+	
+	<p>Please do not reply to this MailBox, It is not monitored.</p>
+</body></html>"
+echo
+) | /usr/sbin/sendmail -t
+done
+lftp -c 'connect sftp://afntcd1:TcdTcd@3.51.24.131//usr/users/afntcd1/sftp/; ls -l | wc -l'
+
+lftp -c 'connect sftp://afncel2:pHu6a8We@3.31.104.177//home/afncel2/sftp/; ls -l | wc -l'
+
+lftp -c 'connect sftp://afntcd1:TcdTcd@10.32.51.132//home/afntcd1/sftp; ls -l | wc -l'
+
+lftp -c 'connect sftp://afntcd1:TcdTcd@klas01ase.as.ae.ge.com//home/afntcd1/sftp/; ls -l | wc -l'
+
+lftp -c 'connect sftp://afntcd1:TcdTcd@10.172.101.75//home/afntcd1/sftp; ls -l | wc -l'
+
+lftp -c 'connect sftp://afntcd1:TcdTcd@3.31.111.196//home/afntcd1/sftp/; ls -l | wc -l'
+
+#!bin/bash
+(for /F %serverIP in (serverIP.txt) do ping -n 1 %serverIP 1>nul && echo %serverIP UP || echo %serverIP DOWN ) 1>result.txt
+
+===========================================================================
+
+#!/bin/bash
+checkfolder=$(lftp -c "open -u afntcd1,TcdTcd 3.51.24.131; ls /usr/users/afntcd1/sftp/")
+
+if [ "$checkfolder" == "" ];
+then
+
+lftp -u afntcd1,TcdTcd 3.51.24.131 << EOF
+
+mkdir test2
+cd test2
+put testfile.txt
+bye
+EOF
+
+else
+
+echo "The directory already exists - exiting"
+
+fi
+==================================================================================================
+HOST='sftp://3.51.24.131'
+USER='afntcd1'
+PASSWORD='TcdTcd'
+lftp -u "$USER","$PASSWORD" $HOST <<EOF
+
+sftp afntcd1@3.51.24.131	/usr/users/afntcd1/sftp/	afntcd1	TcdTcd
+
+for server in $(<serverIP.txt)
+do  # ftp may say "Connection timed out" or "Connection refused"
+    ftp $server <<<'' 2>&1 | grep -q Connection || echo $server
+done >livehosts.txt
+
+
+
+for i in 3.31.104.177 10.32.51.132 klas01ase.as.ae.ge.com 10.172.101.75 3.59.236.251 3.51.24.131 3.31.111.196
+do
+
+while read hostname
+do
+ping -c 1 -t 1 "$hostname" > /dev/null 2>&1 && 
+echo "Ping Status of $hostname : Success" || 
+echo "Ping Status of $hostname : Failed" 
+done < host.txt
+
+
+========================================================================================================================================
+
+As your ip range has no symmetry and there are only 10 nodes, I would suggest to list them in a text file. I am considering the file containing the list is list.txt which contains list of ip one at each line as shown below,
+
+10.12.13.14
+172.15.48.3
+192.168.45.54
+...
+48.114.78.227
+You can use this script,
+
+#!/bin/bash
+# Program name: pingall.sh
+date
+cat serverIP.txt |  while read output
+do
+    ping -c 1 "$output" > /dev/null
+    if [ $? -eq 0 ]; then
+    echo "node $output is up" 
+    else
+    echo "node $output is down"
+    fi
+done
+To update the running status of your nodes at an interval of 30 mins use at crontab,
+
+
+==============================================================================================
+#!bin/bash
+SERVERIP1=3.31.111.196
+
+ftp ftp://afntcd1:TcdTcd@10.83.127.25
+if [ $? -eq 0 ]
+then
+echo "inside if loop"
+status1="$(echo "server is up and running")"; exit 0; echo $status1
+else
+echo "in else loop"
+status1="$(echo "server is down please take action")"; exit 1; echo $status1
+exit 1
+fi
+
+
+lftp -c 'connect sftp://afntcd1:TcdTcd@3.31.111.196//home/afntcd1/sftp/;ls -l | wc -l'
+ if [ $? -eq 0 ]
+then
+echo "success"
+exit 0
+else
+echo "failed"
+exit 1
+fi
+ lftp open -u afntcd1, TcdTcd 
+lftp sftp://afntcd1:TcdTcd@3.31.111.196  -e "ls -l | wc -l; bye"
+lftp sftp://afntcd1:TcdTcd@10.83.127.25  -e "ls -l | wc -l; bye
+ftp ftp://username:password@my.domain.com
+ftp ftp://afntcd1:TcdTcd@3.31.111.196
+ftp ftp://afntcd1:TcdTcd@10.83.127.25
+ftp://username:password@hostname/
+#!bin/bash
+red='\e[0;31m'
+green='\e[0;32m'
+NC='\e[0m'
+if [ $? = 0 ]
+            then
+                    echo -e "${green}success"
+            else
+                    echo -e "${red} failed"
+    fi
+	
+lftp -e "set net:max-retries 1; set net:reconnect-interval-base 1; bye"  -c 'connect sftp://afntcd1:TcdTcd@3.31.111.196//home/afntcd1/sftp/;ls -l | wc -l';
+if [ $? -eq 0 ]
+then
+echo "inside if loop"
+status1="$(echo "server is up and running")"; exit 0; echo $status1
+else
+echo "in else loop"
+status1="$(echo "server is down please take action")"; exit 1; echo $status1
+exit 1
+
+lftp -e "set net:max-retries 1; set net:reconnect-interval-base 1; bye"  -c 'connect sftp://afntcd1:TcdTcd@10.83.127.25//home/afntcd1/sftp/;ls -l | wc -l';
+if [ $? -eq 0 ]
+then
+echo "inside if loop"
+status1="$(echo "server is up and running")"; exit 0; echo $status1
+else
+echo "in else loop"
+status1="$(echo "server is down please take action")"; exit 1; echo $status1
+exit 1
+fi
+
+
+=============================================================================================
+
+lftp sftp://user:password@host
+lftp sftp://afntcd1:TcdTcd@3.51.24.131 
+lftp sftp://afntcd1:TcdTcd@10.83.127.25 
+lftp sftp://afncel2:pHu6a8We@3.31.104.177 
+lftp sftp://afntcd1:TcdTcd@10.32.51.132 
+lftp sftp://afntcd1:TcdTcd@klas01ase.as.ae.ge.com  
+lftp sftp://afntcd1:TcdTcd@10.172.101.75 
+
+set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5;
+
+#!bin/bash
+SERVERIP1=3.51.24.131
+SERVERIP2=10.83.127.25
+SERVERIP3=3.31.104.177
+SERVERIP4=10.32.51.132
+SERVERIP5=klas01ase.as.ae.ge.com
+SERVERIP6=10.172.101.75
+SERVERIP7=3.31.111.196
+
+lftp -c "open -u afntcd1,TcdTcd 3.51.24.131" -e "set net:max-retries 5; set net:reconnect-interval-base 5; bye" 
+if [ $? -eq 0 ]
+then
+status1="$(echo "server is up and running")"; echo $status1 
+else
+status1="$(echo "server is down please take action")"; echo $status1; exit 1
+fi
+lftp -c "open -u afntcd1,TcdTcd 10.83.127.25" -e "set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5; bye";
+if [ $? -eq 0 ]
+then
+status2="$(echo "server is up and running")"; echo $status2 
+else
+status2="$(echo "server is down please take action")"; echo $status2; exit 1
+fi
+lftp -c "open -u afncel2,pHu6a8We 3.31.104.177" -e "set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5; bye"
+if [ $? -eq 0 ]
+then
+status3="$(echo "server is up and running")"; echo $status3 
+else
+status3="$(echo "server is down please take action")"; echo $status3; exit 1
+fi
+open sftp://afntcd1:TcdTcd@10.32.51.132 -e "set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5; bye" 
+if [ $? -eq 0 ]
+then
+status4="$(echo "server is up and running")"; echo $status4 
+else
+status4="$(echo "server is down please take action")"; echo $status4; exit 1
+fi
+open sftp://afntcd1:TcdTcd@klas01ase.as.ae.ge.com -e "set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5; bye" 
+if [ $? -eq 0 ]
+then
+status5="$(echo "server is up and running")"; echo $status5 
+else
+status5="$(echo "server is down please take action")"; echo $status5; exit 1
+fi
+open sftp://afntcd1:TcdTcd@10.172.101.75 -e "set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5; bye" 
+if [ $? -eq 0 ]
+then
+status6="$(echo "server is up and running")"; echo $status6 
+else
+status6="$(echo "server is down please take action")"; echo $status6; exit 1
+fi
+lftp -c "open -u afncel2,pHu6a8We 3.31.111.196" -e "set net:timeout 5; set net:max-retries 3; set net:reconnect-interval-multiplier 1; set net:reconnect-interval-base 5; bye" 
+if [ $? -eq 0 ]
+then
+status6="$(echo "server is up and running")"; echo $status6 
+else
+status6="$(echo "server is down please take action")"; echo $status6; exit 1
+fi
+(
+echo "To: bonigalasarah.stone@ge.com"
+echo "Subject: Server Status on $(date)"
+echo "Content-Type: text/html"
+echo "<html>
+<head>
+<title>Status of the server running the day</title>
+<style>
+  body {
+            font-family: 'Times New Roman';
+            }
+ table, th, td{
+                        border: 1px solid black;
+						text-align:center;
+                        }
+                th{
+                        width:150px;
+                        }
+                td{
+                        width:350px;
+}
+				th, td {
+				padding: 5px;
+				}
+</style>
+</head>
+<body>
+<h4>Hi Team,</h4>
+<table style='width:100%'>
+<tr bgcolor='#808080'>
+    <th>Server Name</th>
+    <th>Server IP Address</th>
+<th>Server status</th>
+  </tr>
+  <tr>
+    <td>DALLAS</td><td>$SERVERIP1</td><td>$status1</td>
+  </tr>
+  <tr>
+    <td>RIO 2</td><td>$SERVERIP2</td><td>$status2</td>
+  </tr>
+  <tr>
+   <td>RIO 2</td><td>$SERVERIP3</td><td>$status3</td>
+  </tr>
+  <tr>
+   <td>RIO 3</td><td>$SERVERIP4</td><td>$status4</td>
+  </tr>
+  <tr>
+    <td>MALAYSIA</td><td>$SERVERIP5</td><td>$status5</td>
+  </tr>
+  <tr>
+    <td>Caledonian</td><td>$SERVERIP6</td><td>$status6</td>
+  </tr>
+  </table>
+ <br><br>
+ <br><br>
+        <b>Please take respective action.</b>
+        <br><br>
+        <b>Thanks</b>
+        <p>Please do not reply to this MailBox, It is not monitored.</p>
+</body></html>"
+echo
+) | /usr/sbin/sendmail -t
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+lftp -c "open -u user,pass ftpsite.com; lftp sftp://afntcd1:TcdTcd@3.31.111.196
+lftp -c "open -u afntcd1,TcdTcd 3.31.111.196;
+lftp -c "open -u afntcd1,TcdTcd 10.83.127.25;"
+open sftp://username:password@server.address.com
+open sftp://afntcd1:TcdTcd@3.31.111.196 open sftp://afntcd1:TcdTcd@3.31.111.196 -e "set net:max-retries 5; set net:reconnect-interval-base 5; bye";
+lftp -u afntcd1,TcdTcd 3.31.111.196 open sftp://afntcd1:TcdTcd@3.31.111.196 -e "set net:max-retries 5; set net:reconnect-interval-base 5; bye";
+
+lftp -c "open -u afntcd1,TcdTcd 3.31.111.196;" open sftp://afntcd1:TcdTcd@3.31.111.196 -e "set net:max-retries 5; set net:reconnect-interval-base 5; bye";
+open sftp://afntcd1:TcdTcd@3.31.111.196 open sftp://afntcd1:TcdTcd@3.31.111.196 -e "set net:max-retries 5; set net:reconnect-interval-base 5; bye";
+
+
+
+
+
+
+
+#!/bin/bash
+NOTIFYEMAIL=bonigalasarah.stone@ge.com
+SENDEREMAIL=bonigalasarah.stone@ge.com
+SERVERIP1=3.31.104.177
+SERVERIP2=10.32.51.132
+SERVERIP3=klas01ase.as.ae.ge.com
+SERVERIP4=10.172.101.75
+SERVERIP5=3.59.236.251
+SERVERIP6=3.51.24.131
+PAUSE=60
+FAILED=0
+DEBUG=0
+
+while true 
+do
+/usr/bin/curl -sSf $SERVER1 > /dev/null 2>&1
+CS=$?
+# For debugging purposes
+if [ $DEBUG -eq 1 ]
+then
+    echo "STATUS = $CS"
+    echo "FAILED = $FAILED"
+    if [ $CS -ne 0 ]
+    then
+        echo "$SERVER1 is down"
+
+    elif [ $CS -eq 0 ]
+    then
+        echo "$SERVER1 is up"
+    fi
+fi
+
+# If the server is down and no alert is sent - alert
+if [ $CS -ne 0 ] && [ $FAILED -eq 0 ]
+then
+    FAILED=1
+    if [ $DEBUG -eq 1 ]
+    then
+        echo "$SERVER1 failed"
+    fi
+    if [ $DEBUG = 0 ]
+    then
+        echo "$SERVER1 went down $(date)" | /usr/bin/mailx -s "$SERVER1 went down" -r "$SENDEREMAIL" "$SMSEMAIL" 
+        echo "$SERVER1 went down $(date)" | /usr/bin/mailx -s "$SERVER1 went down" -r "$SENDEREMAIL" "$NOTIFYEMAIL" 
+    fi
+
+# If the server is back up and no alert is sent - alert
+elif [ $CS -eq 0 ] && [ $FAILED -eq 1 ]
+then
+    FAILED=0
+    if [ $DEBUG -eq 1 ]
+    then
+        echo "$SERVER is back up"
+    fi
+    if [ $DEBUG = 0 ]
+    then
+        echo "$SERVER1 is back up $(date)" | /usr/bin/mailx -s "$SERVER1 is back up again" -r "$SENDEREMAIL" "$SMSEMAIL"
+        echo "$SERVER1 is back up $(date)" | /usr/bin/mailx -s "$SERVER1 is back up again" -r "$SENDEREMAIL" "$NOTIFYEMAIL"
+    fi
+fi
+sleep $PAUSE
+done
+
+
+========================================================================
+
+Host Name : tnsp02023.ae.ge.com	 
+Username : intc_arch_prod	 	
+Password : 	Itc2016Aug
+=======================================================================
+ls -l|grep "Jun 29"|grep "2019"|wc
+
+grep "$(date +"%Y-%m-%d")"
+
+
+ls -l| grep "$(date '%m-%d')"| grep "$(date '%Y')" |wc
+
+echo DATESTAMP=`date +"%m/%d/%Y"`
+
+intc_arch_prod@tnsp02023.ae.ge.com
+
+**********************find ./ -ctime 1  ====> not well worked
+cd /path/; ls -lrt abc833* | sed 1d | tr -s ' '|cut -d' ' -f9|grep $(date '+%d')
+cd /apps/tcd/TCDFiles/EMIRATES/EMIRATES; ls -lrt | sed 1d | tr -s ' '|cut -d' ' -f9 | grep $(date '+%d+%M')grep "2019"|wc
+
+
+============================================================================
+
+ls -l|grep "Jun 29 2019"|wc	
+
+
+ cd /apps/tcd/TCDFiles/EMIRATES/EMIRATES 	
+/apps/tcd/TCDFiles/EGAT/EGAT 	
+/apps/tcd/TCDFiles/KLM/KLM	
+/apps/tcd/TCDFiles/SSAMC/SSAMC	
+/apps/tcd/TCDFiles/TEXL/TEXL
+
+
+find /directory -type f -mtime -10 -mtime +5 -print0 | xargs -0 grep -l expression
+=====================================================
+#!/bin/ksh
+ls -l | grep "^-" | awk '{
+key=$6$7
+freq[key]++
+}
+END {
+for (date in freq)
+        printf "%s\t%d\n", date, freq[date]
+}'
+
+
+
+
+
+================================================
+ls -ltr | tail +2 > tempfile
+token=`head -1 tempfile`
+count=1
+while read line
+do
+ dt=`echo $line | awk '{print $6" "$7}'`
+ if [ "$dt" != "$token" ]
+ then
+  echo "$dt => No of files: $count"
+  token=$dt
+  count=1
+ else
+  count=`expr $count + 1`
+ fi
+done<tempfile
